@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ADSProjetc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ce84f056a53dd5908017428d0a0f69cc8dd7470")]
 [assembly: System.Reflection.AssemblyProductAttribute("ADSProjetc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ADSProjetc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

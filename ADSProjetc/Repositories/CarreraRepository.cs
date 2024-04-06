@@ -15,8 +15,7 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //validar si existen datos en la lista, de ser asi, tomaremos el ultmo ID
-                //y lo incrementamos en una unidad
+               
                 if (carreraList.Count > 0)
                 {
                     carrera.IdCarrera = carreraList.Last().IdCarrera + 1;
@@ -35,13 +34,20 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //Obtenemos el indice del objeto para actualizar
+                int bandera=0;
                 int indice = carreraList.FindIndex(tmp => tmp.IdCarrera == idCarrera);
 
-                //procedemos con la actualizacion
-                carreraList[indice] = carrera;
+                if (indice >= 0)
+                {
+                    carreraList[indice] = carrera;
+                    bandera = idCarrera;
+                }
+                else
+                {
+                    bandera = -1;
+                }
 
-                return idCarrera;
+                return bandera;
             }
             catch (Exception)
             {
@@ -53,13 +59,16 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //Obtenemos el indice del objeto a eliminar
-                int indice = carreraList.FindIndex(tmp => tmp.IdCarrera== idCarrera);
+                bool bandera = false;
+                int indice = carreraList.FindIndex(aux => aux.IdCarrera== idCarrera);
 
-                //procedemos con la actualizacion
-                carreraList.RemoveAt(indice);
+                if (indice >= 0)
+                {
+                    carreraList.RemoveAt(indice);
+                    bandera = true;
+                }
 
-                return true;
+                return bandera;
             }
             catch (Exception)
             {
@@ -71,8 +80,8 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //Obtenemos el indice del objeto para actualizar
-                Carrera carrera= carreraList.FirstOrDefault(tmp => tmp.IdCarrera== idCarrera);
+                
+                var carrera= carreraList.FirstOrDefault(tmp => tmp.IdCarrera== idCarrera);
 
                 return carrera;
             }

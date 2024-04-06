@@ -30,3 +30,4 @@ C:\Users\jvane\OneDrive - Universidad de Sonsonate\Materias Actuales\Laboratorio
 C:\Users\jvane\OneDrive - Universidad de Sonsonate\Materias Actuales\Laboratorio Analisis\ADSProjetc\ADSProjetc\obj\Debug\net8.0\ADSProjetc.pdb
 C:\Users\jvane\OneDrive - Universidad de Sonsonate\Materias Actuales\Laboratorio Analisis\ADSProjetc\ADSProjetc\obj\Debug\net8.0\ADSProjetc.genruntimeconfig.cache
 C:\Users\jvane\OneDrive - Universidad de Sonsonate\Materias Actuales\Laboratorio Analisis\ADSProjetc\ADSProjetc\obj\Debug\net8.0\ref\ADSProjetc.dll
+C:\Users\jvane\OneDrive - Universidad de Sonsonate\Materias Actuales\Laboratorio Analisis\ADSProjetc\ADSProjetc\obj\Debug\net8.0\ADSProjetc.sourcelink.json

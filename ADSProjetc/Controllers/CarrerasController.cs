@@ -1,6 +1,7 @@
 ﻿using ADSProjetc.Interfaces;
 using ADSProjetc.Models;
 using Microsoft.AspNetCore.Mvc;
+using ADSProjetc.Utils;
 
 namespace ADSProjetc.Controllers
 {
@@ -8,8 +9,6 @@ namespace ADSProjetc.Controllers
     public class CarrerasController : ControllerBase
     {
         private readonly ICarrera carrera;
-        private const string COD_EXITO = "000000";
-        private const string COD_ERROR = "999999";
         private string pCodRespuesta;
         private string pMensajeUsuario;
         private string pMensajeTecnico;
@@ -28,13 +27,13 @@ namespace ADSProjetc.Controllers
                 int contador = this.carrera.AgregarCarrera(carrera);
                 if (contador > 0)
                 {
-                    pCodRespuesta = COD_EXITO;
+                    pCodRespuesta = Constants.COD_EXITO;
                     pMensajeUsuario = "Registro insertado con exito";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
+                    pCodRespuesta = Constants.COD_ERROR;
                     pMensajeUsuario = "Ocurrio un problema al insertar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
                 }
@@ -54,14 +53,14 @@ namespace ADSProjetc.Controllers
                 int contador = this.carrera.ActualizarCarrera(idCarrera, carrera);
                 if (contador > 0)
                 {
-                    pCodRespuesta = COD_EXITO;
+                    pCodRespuesta = Constants.COD_EXITO;
                     pMensajeUsuario = "Registro actualizado con exito";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
+                    pCodRespuesta = Constants.COD_ERROR;
                     pMensajeUsuario = "Ocurrio un problema al actualizar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
@@ -82,13 +81,13 @@ namespace ADSProjetc.Controllers
                 bool eliminado = this.carrera.EliminarCarrera(idCarrera);
                 if (eliminado)
                 {
-                    pCodRespuesta = COD_EXITO;
+                    pCodRespuesta = Constants.COD_EXITO;
                     pMensajeUsuario = "Registro eliminado con exito";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
+                    pCodRespuesta = Constants.COD_ERROR;
                     pMensajeUsuario = "Ocurrio un problema al eliminar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
                 }
@@ -113,7 +112,7 @@ namespace ADSProjetc.Controllers
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
+                    pCodRespuesta = Constants.COD_ERROR;
                     pMensajeUsuario = "No e encontraron datos del estudiante";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 

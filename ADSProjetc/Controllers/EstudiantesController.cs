@@ -1,5 +1,6 @@
 ﻿using ADSProjetc.Interfaces;
 using ADSProjetc.Models;
+using ADSProjetc.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ADSProjetc.Controllers
@@ -8,8 +9,6 @@ namespace ADSProjetc.Controllers
     public class EstudiantesController : ControllerBase
     {
         private readonly IEstudiante estudiante;
-        private const string COD_EXITO = "000000";
-        private const string COD_ERROR = "999999";
         private string pCodRespuesta;
         private string pMensajeUsuario;
         private string pMensajeTecnico;
@@ -28,20 +27,20 @@ namespace ADSProjetc.Controllers
                 int contador = this.estudiante.AgregarEstudiante(estudiante);
                 if (contador > 0)
                 {
-                    pCodRespuesta = COD_EXITO;
-                    pMensajeUsuario = "Registro insertado con exito";
+                    pCodRespuesta = Constants.COD_EXITO;
+                    pMensajeUsuario = "Se agrego correctamente";
+                    pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
+                }
+
+                else
+                {
+                    pCodRespuesta = Constants.COD_ERROR;
+                    pMensajeUsuario = "Error inesperado, no se pudo agregar";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                 }
-                else
-                {
-                    pCodRespuesta = COD_ERROR;
-                    pMensajeUsuario = "Ocurrio un problema al insertar el registro";
-                    pMensajeTecnico= pCodRespuesta + " || " + pMensajeUsuario;
-
-                }
-
                 return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
+
             }
             catch (Exception)
             {
@@ -60,20 +59,20 @@ namespace ADSProjetc.Controllers
 
                 if (contador > 0)
                 {
-                    pCodRespuesta = COD_EXITO;
-                    pMensajeUsuario = "Registro actualizado con exito";
+                    pCodRespuesta = Constants.COD_EXITO;
+                    pMensajeUsuario = "Se actulizo correctamente";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
-                    pMensajeUsuario = "Ocurrio un problema al actualizar el registro";
+                    pCodRespuesta = Constants.COD_ERROR;
+                    pMensajeUsuario = "Error inesperado, no se pudo actualizar";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                 }
-
                 return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
+
             }
             catch (Exception)
             {
@@ -91,19 +90,17 @@ namespace ADSProjetc.Controllers
                 bool eliminado = this.estudiante.EliminarEstudiante(idEstudiante);
                 if (eliminado)
                 {
-                    pCodRespuesta = COD_EXITO;
-                    pMensajeUsuario = "Registro eliminado con exito";
+                    pCodRespuesta = Constants.COD_EXITO;
+                    pMensajeUsuario = "Se elimino correctamente";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
-                    pMensajeUsuario = "Ocurrio un problema al eliminar el registro";
+                    pCodRespuesta = Constants.COD_ERROR;
+                    pMensajeUsuario = "Error inesperado, no se pudo eliminar";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
-
                 }
-
                 return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
             }
             catch (Exception)
@@ -128,11 +125,10 @@ namespace ADSProjetc.Controllers
                 }
                 else
                 {
-                    pCodRespuesta = COD_ERROR;
-                    pMensajeUsuario = "No e encontraron datos del estudiante";
+                    pCodRespuesta = Constants.COD_ERROR;
+                    pMensajeUsuario = "Error inesperado, no se pudo agregar";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
-
-                    return NotFound(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
+                    return NotFound(new {pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
                 }
 
                 

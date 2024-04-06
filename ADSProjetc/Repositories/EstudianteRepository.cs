@@ -37,13 +37,20 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //Obtenemos el indice del objeto para actualizar
+                int bandera = 0;
                 int indice = lstEstudiantes.FindIndex(tmp => tmp.IdEstudiante == idEstudiante);
 
-                //procedemos con la actualizacion
-                lstEstudiantes[indice] = estudiante;
+                if(indice >= 0)
+                {
+                    lstEstudiantes[indice] = estudiante;
+                    bandera = idEstudiante;
+                }
+                else
+                {
+                    bandera = -1;
+                }
 
-                return idEstudiante;
+                return bandera;
             }
             catch (Exception)
             {
@@ -57,13 +64,16 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //Obtenemos el indice del objeto a eliminar
-                int indice = lstEstudiantes.FindIndex(tmp => tmp.IdEstudiante == idEstudiante);
+                bool bandera = false;
+                int indice = lstEstudiantes.FindIndex(aux => aux.IdEstudiante == idEstudiante);
 
-                //procedemos con la actualizacion
-                lstEstudiantes.RemoveAt(indice);
+                if (indice >= 0)
+                {
+                    lstEstudiantes.RemoveAt(indice);
+                    bandera = true;
+                }
 
-                return true;
+                return bandera;
             }
             catch (Exception)
             {
@@ -75,8 +85,8 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                //Obtenemos el indice del objeto para actualizar
-                Estudiante estudiante = lstEstudiantes.FirstOrDefault(tmp => tmp.IdEstudiante == idEstudiante);
+                
+                var estudiante = lstEstudiantes.FirstOrDefault(tmp => tmp.IdEstudiante == idEstudiante);
 
                 return estudiante;
             }
