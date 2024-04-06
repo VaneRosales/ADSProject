@@ -117,7 +117,7 @@ namespace ADSProjetc.Controllers
                 else
                 {
                     pCodRespuesta = Constants.COD_ERROR;
-                    pMensajeUsuario = "No e encontraron datos del estudiante";
+                    pMensajeUsuario = "No e encontraron datos de la materia";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                     return NotFound(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });

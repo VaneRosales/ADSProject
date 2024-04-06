@@ -5,26 +5,25 @@ using ADSProjetc.Utils;
 
 namespace ADSProjetc.Controllers
 {
-    [Route("api/carreras/")]
-    public class CarrerasController : ControllerBase
+    [Route("api/profesores")]
+    public class ProfesoresController:ControllerBase
     {
-        private readonly ICarrera carrera;
+        private readonly IProfesor profesor;
         private string pCodRespuesta;
         private string pMensajeUsuario;
         private string pMensajeTecnico;
 
-        public CarrerasController(ICarrera carrera)
+        public ProfesoresController(IProfesor profesor)
         {
-            this.carrera = carrera;
-
+            this.profesor = profesor;
         }
 
-        [HttpPost("agregarCarrera")]
-        public ActionResult<string> AgregarCarrera([FromBody] Carrera carrera)
+        [HttpPost("agregarProfesor")]
+        public ActionResult<string> AgregarProfesor([FromBody] Profesor profesor)
         {
             try
             {
-                int contador = this.carrera.AgregarCarrera(carrera);
+                int contador = this.profesor.AgregarProfesor(profesor);
                 if (contador > 0)
                 {
                     pCodRespuesta = Constants.COD_EXITO;
@@ -41,44 +40,47 @@ namespace ADSProjetc.Controllers
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
 
-        [HttpPut("actualizarCarrera/{idCarrera}")]
-        public ActionResult<string> ActualizarCarrera(int idCarrera, [FromBody] Carrera carrera)
+
+        [HttpPut("actualizarProfesor/{idProfesor}")]
+        public ActionResult<string> ActualizarProfesor(int idProfesor, [FromBody] Profesor profesor)
         {
             try
             {
-                int contador = this.carrera.ActualizarCarrera(idCarrera, carrera);
+                int contador = this.profesor.ActualizarProfesor(idProfesor, profesor);
                 if (contador > 0)
                 {
                     pCodRespuesta = Constants.COD_EXITO;
                     pMensajeUsuario = "Registro actualizado con exito";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
-
                 }
                 else
                 {
                     pCodRespuesta = Constants.COD_ERROR;
                     pMensajeUsuario = "Ocurrio un problema al actualizar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
-
                 }
+
                 return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
 
-        [HttpDelete("eliminarCarrera/{idCarrera}")]
-        public ActionResult<string> EliminarCarrera(int idCarrera)
+
+        [HttpDelete("eliminarProfesor/{idProfesor}")]
+        public ActionResult<string> EliminarProfesor(int idProfesor)
         {
             try
             {
-                bool eliminado = this.carrera.EliminarCarrera(idCarrera);
+                bool eliminado = this.profesor.EliminarProfesor(idProfesor);
                 if (eliminado)
                 {
                     pCodRespuesta = Constants.COD_EXITO;
@@ -91,29 +93,31 @@ namespace ADSProjetc.Controllers
                     pMensajeUsuario = "Ocurrio un problema al eliminar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
                 }
-                return Ok(new{ pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
+
+                return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
             }
             catch (Exception)
             {
+
                 throw;
             }
-
         }
 
-        [HttpGet("obtenerCarreraPorID/{idCarrera}")]
-        public ActionResult<Carrera> ObtnerCarreraPorID(int idCarrera)
+
+        [HttpGet("obtenerProfesorPorID/{idProfesor}")]
+        public ActionResult<Profesor> ObtenerProfesorPorID(int idProfesor)
         {
             try
             {
-                Carrera carrera = this.carrera.ObtenerCarreraPorID(idCarrera);
-                if(carrera != null)
+                Profesor profesor= this.profesor.ObtenerProfesorPorID(idProfesor);
+                if (profesor != null)
                 {
-                    return Ok(carrera);
+                    return Ok(profesor);
                 }
                 else
                 {
                     pCodRespuesta = Constants.COD_ERROR;
-                    pMensajeUsuario = "No e encontraron datos de la carrera";
+                    pMensajeUsuario = "No e encontraron datos del profesor";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
 
                     return NotFound(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
@@ -121,22 +125,27 @@ namespace ADSProjetc.Controllers
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
 
-        [HttpGet("obtenerCarreras")]
-        public ActionResult<List<Carrera>> ObtenerCarreras()
+
+        [HttpGet("obtenerProfesores")]
+        public ActionResult<List<Profesor>> ObtenerProfesores()
         {
             try
             {
-                List<Carrera> carreraList = this.carrera.ObtenerTodasLasCarreras();
-                return Ok(carreraList);
+                List<Profesor> profesorList = this.profesor.ObtenerTodosLosProfesores();
+                return Ok(profesorList);
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
+
+
     }
 }
