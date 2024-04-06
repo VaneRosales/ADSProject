@@ -1,30 +1,29 @@
 ﻿using ADSProjetc.Interfaces;
-using ADSProjetc.Models;
 using Microsoft.AspNetCore.Mvc;
 using ADSProjetc.Utils;
+using ADSProjetc.Models;
 
 namespace ADSProjetc.Controllers
 {
-    [Route("api/carreras/")]
-    public class CarrerasController : ControllerBase
+    [Route("api/materias")]
+    public class MateriasController : ControllerBase
     {
-        private readonly ICarrera carrera;
+        private readonly IMateria materia;
         private string pCodRespuesta;
         private string pMensajeUsuario;
         private string pMensajeTecnico;
 
-        public CarrerasController(ICarrera carrera)
+        public MateriasController(IMateria materia)
         {
-            this.carrera = carrera;
-
+            this.materia = materia;
         }
 
-        [HttpPost("agregarCarrera")]
-        public ActionResult<string> AgregarCarrera([FromBody] Carrera carrera)
+        [HttpPost("agregarMateria")]
+        public ActionResult<string> AgregarMateria([FromBody] Materia materia)
         {
             try
             {
-                int contador = this.carrera.AgregarCarrera(carrera);
+                int contador = this.materia.AgregarMateria(materia);
                 if (contador > 0)
                 {
                     pCodRespuesta = Constants.COD_EXITO;
@@ -41,44 +40,47 @@ namespace ADSProjetc.Controllers
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
 
-        [HttpPut("actualizarCarrera/{idCarrera}")]
-        public ActionResult<string> ActualizarCarrera(int idCarrera, [FromBody] Carrera carrera)
+
+        [HttpPut("actualizarMateria/{idMateria}")]
+        public ActionResult<string> ActualizarMateria(int idMateria, [FromBody] Materia materia)
         {
             try
             {
-                int contador = this.carrera.ActualizarCarrera(idCarrera, carrera);
+                int contador = this.materia.ActualizarMateria(idMateria, materia);
                 if (contador > 0)
                 {
                     pCodRespuesta = Constants.COD_EXITO;
                     pMensajeUsuario = "Registro actualizado con exito";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
-
                 }
                 else
                 {
                     pCodRespuesta = Constants.COD_ERROR;
                     pMensajeUsuario = "Ocurrio un problema al actualizar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
-
                 }
+
                 return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
 
-        [HttpDelete("eliminarCarrera/{idCarrera}")]
-        public ActionResult<string> EliminarCarrera(int idCarrera)
+
+        [HttpDelete("eliminarMateria/{idMateria}")]
+        public ActionResult<string> EliminarMateria(int idMateria)
         {
             try
             {
-                bool eliminado = this.carrera.EliminarCarrera(idCarrera);
+                bool eliminado = this.materia.EliminarMateria(idMateria);
                 if (eliminado)
                 {
                     pCodRespuesta = Constants.COD_EXITO;
@@ -91,24 +93,26 @@ namespace ADSProjetc.Controllers
                     pMensajeUsuario = "Ocurrio un problema al eliminar el registro";
                     pMensajeTecnico = pCodRespuesta + " || " + pMensajeUsuario;
                 }
-                return Ok(new{ pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
+
+                return Ok(new { pCodRespuesta, pMensajeUsuario, pMensajeTecnico });
             }
             catch (Exception)
             {
+
                 throw;
             }
-
         }
 
-        [HttpGet("obtenerCarreraPorID/{idCarrera}")]
-        public ActionResult<Carrera> ObtnerCarreraPorID(int idCarrera)
+
+        [HttpGet("obtenerMateriaPorID/{idMateria}")]
+        public ActionResult<Materia> ObtenerMateriaPorID(int idMateria)
         {
             try
             {
-                Carrera carrera = this.carrera.ObtenerCarreraPorID(idCarrera);
-                if(carrera != null)
+                Materia materia = this.materia.ObtenerMateriaPorID(idMateria);
+                if (materia != null)
                 {
-                    return Ok(carrera);
+                    return Ok(materia);
                 }
                 else
                 {
@@ -121,22 +125,28 @@ namespace ADSProjetc.Controllers
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
 
-        [HttpGet("obtenerCarreras")]
-        public ActionResult<List<Carrera>> ObtenerCarreras()
+
+        [HttpGet("obtenerMaterias")]
+        public ActionResult<List<Materia>> ObtenerMaterias()
         {
             try
             {
-                List<Carrera> carreraList = this.carrera.ObtenerTodasLasCarreras();
-                return Ok(carreraList);
+                List<Materia> materiaList = this.materia.ObtenerTodasLasMaterias();
+                return Ok(materiaList);
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
+
+
     }
+
 }
