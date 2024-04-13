@@ -1,19 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ADSProjetc.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace ADSProjetc.Models
 {
     public class Grupo
     {
         public int IdGrupo {  get; set; }
-        [Required(ErrorMessage = "Este es un campo requerido")]
+        [CustomRequired(ErrorMessage = "Este es un campo requerido y mayor a 0")]
         public int IdCarrera {  get; set; }
-        [Required(ErrorMessage = "Este es un campo requerido")]
+        [CustomRequired(ErrorMessage = "Este es un campo requerido y mayor a 0")]
         public int IdMateria {  get; set; }
-        [Required(ErrorMessage = "Este es un campo requerido")]
+        [CustomRequired(ErrorMessage = "Este es un campo requerido y mayor a 0")]
         public int IdProfesor {  get; set; }
-        [Required(ErrorMessage = "Este es un campo requerido")]
+        [CustomRequired(ErrorMessage = "Este es un campo requerido y mayor a 0")]
         public int Ciclo {  get; set; }
-        [Required(ErrorMessage = "Este es un campo requerido")]
+        [CustomRequired(ErrorMessage = "Este es un campo requerido y mayor a 0")]
         public int Anio {  get; set; }
     }
 }
