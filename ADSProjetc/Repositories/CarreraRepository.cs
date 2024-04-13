@@ -7,8 +7,8 @@ namespace ADSProjetc.Repositories
     {
         private List<Carrera> carreraList = new List<Carrera>
         {
-            new Carrera {IdCarrera=1, NombreCarrera="Ingenieria en Sistemas", CodigoCarrera="I04001"},
-            new Carrera {IdCarrera=2, NombreCarrera="Ingenieria Industrial", CodigoCarrera="I03001"}
+            new Carrera {IdCarrera=1, NombreCarrera="Ingenieria en Sistemas", CodigoCarrera="I04"},
+            new Carrera {IdCarrera=2, NombreCarrera="Ingenieria Industrial", CodigoCarrera="I03"}
         };
 
         public int AgregarCarrera(Carrera carrera)
