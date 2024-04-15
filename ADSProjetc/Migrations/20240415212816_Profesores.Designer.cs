@@ -3,6 +3,7 @@ using ADSProjetc.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ADSProjetc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240415212816_Profesores")]
+    partial class Profesores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,34 +78,6 @@ namespace ADSProjetc.Migrations
                     b.HasKey("IdEstudiante");
 
                     b.ToTable("Estudiantes");
-                });
-
-            modelBuilder.Entity("ADSProjetc.Models.Grupo", b =>
-                {
-                    b.Property<int>("IdGrupo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGrupo"));
-
-                    b.Property<int>("Anio")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Ciclo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdCarrera")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMateria")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProfesor")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdGrupo");
-
-                    b.ToTable("Grupos");
                 });
 
             modelBuilder.Entity("ADSProjetc.Models.Materia", b =>

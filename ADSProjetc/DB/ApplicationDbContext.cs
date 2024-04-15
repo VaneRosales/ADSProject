@@ -13,5 +13,10 @@ namespace ADSProjetc.DB
         //tambien le diremos en base a que modelos o entidades vamos a basar dichas tablas, por ejem
 
         public DbSet<Estudiante> Estudiantes { get; set; }
+        public DbSet<Carrera> Carreras { get; set; }
+        public DbSet<Materia> Materias { get; set; }
+        public DbSet<Profesor> Profesores { get; set; }
+        public DbSet<Grupo> Grupos { get; set; }
+
     }
 }
