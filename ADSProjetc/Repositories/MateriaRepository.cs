@@ -1,25 +1,25 @@
-﻿using ADSProjetc.Interfaces;
+﻿using ADSProjetc.DB;
+using ADSProjetc.Interfaces;
+using ADSProjetc.Migrations;
 using ADSProjetc.Models;
 
 namespace ADSProjetc.Repositories
 {
     public class MateriaRepository : IMateria
     {
-        private List<Materia> materiaList = new List<Materia>
+        /*private List<Materia> materiaList = new List<Materia>
         {
             new Materia {IdMateria=1,NombreMateria="Estatica"},
             new Materia {IdMateria=2,NombreMateria="Matematica 1"}
-        };
+        };*/
 
+        private readonly ApplicationDbContext applicationDbContext;
         public int AgregarMateria(Materia materia)
         {
             try
             {
-                if (materiaList.Count > 0)
-                {
-                    materia.IdMateria = materiaList.Last().IdMateria + 1;
-                }
-                materiaList.Add(materia);
+                applicationDbContext.Materias.Add(materia);
+                applicationDbContext.SaveChanges();
 
                 return materia.IdMateria;
             }
@@ -34,19 +34,12 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                int bandera = 0;
-                int indice = materiaList.FindIndex(tmp => tmp.IdMateria == idMateria);
-                
-                if (indice >= 0)
-                {
-                    materiaList[indice] = materia;
-                    bandera = idMateria;
-                }
-                else
-                {
-                    bandera = -1;
-                }
-                return bandera;
+                var item = applicationDbContext.Materias.SingleOrDefault(tmp => tmp.IdMateria == idMateria);
+
+                applicationDbContext.Entry(item).CurrentValues.SetValues(materia);
+                applicationDbContext.SaveChanges();
+
+                return idMateria;
             }
             catch (Exception)
             {
@@ -59,15 +52,11 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                bool bandera = false;
-                int indice = materiaList.FindIndex(aux => aux.IdMateria == idMateria);
-                if (indice >= 0)
-                {
-                    materiaList.RemoveAt(indice);
-                    bandera = true;
-                }
+                var item = applicationDbContext.Materias.SingleOrDefault(x => x.IdMateria == idMateria);
+                applicationDbContext.Materias.Remove(item);
+                applicationDbContext.SaveChanges();
 
-                return bandera;
+                return true;
             }
             catch (Exception)
             {
@@ -80,7 +69,8 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                var materia = materiaList.FirstOrDefault(tmp => tmp.IdMateria == idMateria);
+              
+                var materia = applicationDbContext.Materias.SingleOrDefault(tmp => tmp.IdMateria == idMateria);
 
                 return materia;
             }
@@ -95,7 +85,7 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                return materiaList;
+                return applicationDbContext.Materias.ToList();
             }
             catch (Exception)
             {
