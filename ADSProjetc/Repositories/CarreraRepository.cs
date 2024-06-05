@@ -1,26 +1,27 @@
-﻿using ADSProjetc.Interfaces;
+﻿using ADSProjetc.DB;
+using ADSProjetc.Interfaces;
+using ADSProjetc.Migrations;
 using ADSProjetc.Models;
 
 namespace ADSProjetc.Repositories
 {
     public class CarreraRepository : ICarrera
     {
-        private List<Carrera> carreraList = new List<Carrera>
+        /*private List<Carrera> carreraList = new List<Carrera>
         {
             new Carrera {IdCarrera=1, NombreCarrera="Ingenieria en Sistemas", CodigoCarrera="I04"},
             new Carrera {IdCarrera=2, NombreCarrera="Ingenieria Industrial", CodigoCarrera="I03"}
-        };
+        };*/
+
+        private readonly ApplicationDbContext applicationDbContext;
 
         public int AgregarCarrera(Carrera carrera)
         {
             try
             {
-               
-                if (carreraList.Count > 0)
-                {
-                    carrera.IdCarrera = carreraList.Last().IdCarrera + 1;
-                }
-                carreraList.Add(carrera);
+
+                applicationDbContext.Carreras.Add(carrera);
+                applicationDbContext.SaveChanges();
 
                 return carrera.IdCarrera;
             }
@@ -34,20 +35,12 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                int bandera=0;
-                int indice = carreraList.FindIndex(tmp => tmp.IdCarrera == idCarrera);
+                var item = applicationDbContext.Carreras.SingleOrDefault(tmp => tmp.IdCarrera == idCarrera);
 
-                if (indice >= 0)
-                {
-                    carreraList[indice] = carrera;
-                    bandera = idCarrera;
-                }
-                else
-                {
-                    bandera = -1;
-                }
+                applicationDbContext.Entry(item).CurrentValues.SetValues(carrera);
+                applicationDbContext.SaveChanges();
 
-                return bandera;
+                return idCarrera;
             }
             catch (Exception)
             {
@@ -59,16 +52,11 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                bool bandera = false;
-                int indice = carreraList.FindIndex(aux => aux.IdCarrera== idCarrera);
+                var item = applicationDbContext.Carreras.SingleOrDefault(x => x.IdCarrera == idCarrera);
+                applicationDbContext.Carreras.Remove(item);
+                applicationDbContext.SaveChanges();
 
-                if (indice >= 0)
-                {
-                    carreraList.RemoveAt(indice);
-                    bandera = true;
-                }
-
-                return bandera;
+                return true;
             }
             catch (Exception)
             {
@@ -81,7 +69,7 @@ namespace ADSProjetc.Repositories
             try
             {
                 
-                var carrera= carreraList.FirstOrDefault(tmp => tmp.IdCarrera== idCarrera);
+                var carrera= applicationDbContext.Carreras.SingleOrDefault(tmp => tmp.IdCarrera== idCarrera);
 
                 return carrera;
             }
@@ -96,7 +84,7 @@ namespace ADSProjetc.Repositories
             try
             {
 
-                return carreraList;
+                return applicationDbContext.Carreras.ToList();
             }
             catch (Exception)
             {

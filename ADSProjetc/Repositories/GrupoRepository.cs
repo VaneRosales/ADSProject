@@ -1,25 +1,25 @@
-﻿using ADSProjetc.Interfaces;
+﻿using ADSProjetc.DB;
+using ADSProjetc.Interfaces;
+using ADSProjetc.Migrations;
 using ADSProjetc.Models;
+using System.Linq;
 
 namespace ADSProjetc.Repositories
 {
     public class GrupoRepository : IGrupo
     {
-        private List<Grupo> grupoList = new List<Grupo>
+       /* private List<Grupo> grupoList = new List<Grupo>
         {
             new Grupo{IdGrupo=1,IdCarrera=1,IdProfesor=1,IdMateria=2,Ciclo=01,Anio=2023 }
-        };
-        
+        };*/
+        private readonly ApplicationDbContext applicationDbContext;
         public int AgregarGrupo(Grupo grupo)
         {
             try
             {
 
-                if (grupoList.Count > 0)
-                {
-                    grupo.IdGrupo = grupoList.Last().IdGrupo + 1;
-                }
-                grupoList.Add(grupo);
+                applicationDbContext.Grupos.Add(grupo);
+                applicationDbContext.SaveChanges();
 
                 return grupo.IdGrupo;
             }
@@ -33,20 +33,12 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                int bandera = 0;
-                int indice = grupoList.FindIndex(tmp => tmp.IdGrupo == idGrupo);
+                var item = applicationDbContext.Grupos.SingleOrDefault(tmp => tmp.IdGrupo == idGrupo);
 
-                if (indice >= 0)
-                {
-                    grupoList[indice] = grupo;
-                    bandera = idGrupo;
-                }
-                else
-                {
-                    bandera = -1;
-                }
+                applicationDbContext.Entry(item).CurrentValues.SetValues(grupo);
+                applicationDbContext.SaveChanges();
 
-                return bandera;
+                return idGrupo;
             }
             catch (Exception)
             {
@@ -58,16 +50,11 @@ namespace ADSProjetc.Repositories
         {
             try
             {
-                bool bandera = false;
-                int indice = grupoList.FindIndex(aux => aux.IdGrupo == idGrupo);
+                var item = applicationDbContext.Grupos.SingleOrDefault(x => x.IdGrupo == idGrupo);
+                applicationDbContext.Grupos.Remove(item);
+                applicationDbContext.SaveChanges();
 
-                if (indice >= 0)
-                {
-                    grupoList.RemoveAt(indice);
-                    bandera = true;
-                }
-
-                return bandera;
+                return true;
             }
             catch (Exception)
             {
@@ -80,7 +67,7 @@ namespace ADSProjetc.Repositories
             try
             {
 
-                var grupo = grupoList.FirstOrDefault(tmp => tmp.IdGrupo == idGrupo);
+                var grupo = applicationDbContext.Grupos.SingleOrDefault(tmp => tmp.IdGrupo == idGrupo);
 
                 return grupo;
             }
@@ -95,7 +82,7 @@ namespace ADSProjetc.Repositories
             try
             {
 
-                return grupoList;
+                return applicationDbContext.Grupos.ToList();
             }
             catch (Exception)
             {
